@@ -210,11 +210,11 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-       - checkout
-       - install_ansible
-       - add_ssh_keys:
+      - checkout
+      - install_ansible
+      - add_ssh_keys:
           fingerprints: ["61:62:72:a5:6c:d3:71:e7:4a:ca:7d:20:14:0d:c4:8b"]
-       - attach_workspace:
+      - attach_workspace:
           at: ~/
       - run:
           name: Configure Server
@@ -222,7 +222,7 @@ jobs:
               cd .circleci/ansible
               cat inventory.txt
               ansible-playbook -i inventory.txt configure-server.yml
-     - destroy-environment  
+      - destroy-environment  
       # Here's where you will add some code to rollback on failure      
 
 #   run-migrations:

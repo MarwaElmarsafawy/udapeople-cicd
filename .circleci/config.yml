@@ -89,6 +89,8 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
+            npm cache clean --force
+            rm -rf node_modules
             npm install
             npm run build
       - save_cache:
@@ -107,6 +109,8 @@ jobs:
           name: Back-end build
           command: |
             cd backend
+            npm cache clean --force
+            rm -rf node_modules
             npm install
             npm run build
       - save_cache:

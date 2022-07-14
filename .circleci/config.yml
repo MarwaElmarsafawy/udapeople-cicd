@@ -244,10 +244,8 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            # npm install
-            sudo npm install typescript --save-dev
-            sudo npm install -g ts-node
-            sudo npm run migrations > migrations_dump.txt
+            npm install
+            npm run migrations > migrations_dump.txt
       - run:
           name: Send migration results to kvdb.io
           command: |
@@ -422,8 +420,8 @@ workflows:
           requires: [configure-infrastructure]
       - deploy-frontend:
           requires: [run-migrations]
-      # - deploy-backend:
-      #     requires: [run-migrations]
+      - deploy-backend:
+          requires: [run-migrations]
       # - smoke-test:
       #     requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:

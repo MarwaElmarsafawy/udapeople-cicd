@@ -26,21 +26,18 @@ commands:
             sudo apt install ansible -y
   
   install_nodejs:
-    description: Install nodejs 10
+    description: Install node.js 13
     steps:
       - run:
-          name: Install nodejs 10
+          name: Install node.js 13
           command: |
             # Install node.js LTS 
-            # curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-            # curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-            # sudo apt-get install -y nodejs
-            curl --silent --location https://deb.nodesource.com/setup_10.x  | sudo bash -
-            sudo apt install --assume-yes nodejs
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+            sudo apt-get install -y nodejs
             
             # Use n package version manager to use node.js 13.8.0
-            # sudo npm install --global n
-            # sudo n 13.8.0
+            sudo npm install --global n
+            sudo n 13.8.0
   # notify_on_failure:
   #   steps:
   #     - slack/notify:
@@ -273,10 +270,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            cd frontend
-            sudo apt-get install npm
-          #  npm install
-           
+           cd frontend
+           npm install
       - run:
           name: Get backend url
           command: |
@@ -312,8 +307,7 @@ jobs:
           name: Install dependencies
           command: |
             cd backend
-            sudo apt-get install npm
-          # npm install
+            npm install
       - run:
           name: Package Backend
           command: |

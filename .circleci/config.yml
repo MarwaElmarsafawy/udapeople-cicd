@@ -26,18 +26,18 @@ commands:
             sudo apt install ansible -y
   
   install_nodejs:
-    description: Install node.js 13
+    description: Install nodejs 10
     steps:
       - run:
-          name: Install node.js 13
+          name: Install nodejs 10
           command: |
-            # Install node.js LTS 
-            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-            sudo apt-get install -y nodejs
+            # Install nodejs 10 
+            curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+            # sudo apt-get install -y nodejs
             
             # Use n package version manager to use node.js 13.8.0
-            sudo npm install --global n
-            sudo n 13.8.0
+            # sudo npm install --global n
+            # sudo n 13.8.0
   # notify_on_failure:
   #   steps:
   #     - slack/notify:
@@ -303,6 +303,8 @@ jobs:
           fingerprints: ["61:62:72:a5:6c:d3:71:e7:4a:ca:7d:20:14:0d:c4:8b"]
       - attach_workspace:
           at: ~/
+      - restore_cache:
+          keys: [backend-deps]
       - run:
           name: Install dependencies
           command: |
@@ -320,9 +322,9 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            export TYPEORM_MIGRATIONS_DIR=./dist/migrations
-            export TYPEORM_ENTITIES=./dist/modules/domain/**/*.entity{.ts,.js}
-            export TYPEORM_MIGRATIONS=./dist/migrations/*.ts
+            export TYPEORM_MIGRATIONS_DIR=./migrations
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_MIGRATIONS=./migrations/*.ts
 
             cd .circleci/ansible
             cat inventory.txt

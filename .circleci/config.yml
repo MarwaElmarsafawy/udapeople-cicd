@@ -272,7 +272,7 @@ jobs:
           name: Install dependencies
           command: |
             cd frontend
-            apt-get install npm
+            sudo apt-get install npm
           #  npm install
            
       - run:
@@ -310,7 +310,8 @@ jobs:
           name: Install dependencies
           command: |
             cd backend
-            npm install
+            sudo apt-get install npm
+          # npm install
       - run:
           name: Package Backend
           command: |

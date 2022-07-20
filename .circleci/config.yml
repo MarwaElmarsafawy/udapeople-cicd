@@ -33,8 +33,10 @@ commands:
           command: |
             # Install node.js LTS 
             # curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-            curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-            sudo apt-get install -y nodejs
+            # curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+            # sudo apt-get install -y nodejs
+            curl --silent --location https://deb.nodesource.com/setup_10.x  | sudo bash -
+            sudo apt install --assume-yes nodejs
             
             # Use n package version manager to use node.js 13.8.0
             # sudo npm install --global n

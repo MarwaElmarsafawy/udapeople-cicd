@@ -259,8 +259,8 @@ jobs:
           name: Install dependencies
           command: |
             cd frontend
-            sudo npm install -g npm@latest
-            # npm install
+            npm update
+            npm install --no-package-lock
       - run:
           name: Get backend url
           command: |
@@ -298,8 +298,8 @@ jobs:
           name: Install dependencies
           command: |
             cd backend
-            sudo npm install -g npm@latest
-            # npm install
+            npm update
+            npm install --no-package-lock
       - run:
           name: Package Backend
           command: |

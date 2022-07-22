@@ -27,14 +27,16 @@ commands:
             sudo apt install ansible -y
   
   install_nodejs:
-    description: Install nodejs 10
+    description: Install nodejs 13
     steps:
       - run:
-          name: Install nodejs 10
+          name: Install nodejs 13
           command: |
-            # Install nodejs 10 
-            curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-            sudo apt-get update && sudo apt-get install yarn
+            # Install nodejs 13
+            sudo apt-get update -y  && curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            sudo npm install --global n
+            sudo n 13.8.0 
 
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -74,7 +76,7 @@ commands:
 jobs:
   build-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -92,7 +94,7 @@ jobs:
 
   build-backend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -110,7 +112,7 @@ jobs:
 
   test-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -124,7 +126,7 @@ jobs:
                 
   test-backend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -141,7 +143,7 @@ jobs:
             
   scan-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -157,7 +159,7 @@ jobs:
 
   scan-backend:
     docker:
-       - image: circleci/node:13.8.0
+       - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -226,7 +228,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -259,8 +261,7 @@ jobs:
           name: Install dependencies
           command: |
             cd frontend
-            npm update
-            npm install --no-package-lock
+            npm install
       - run:
           name: Get backend url
           command: |
@@ -298,8 +299,7 @@ jobs:
           name: Install dependencies
           command: |
             cd backend
-            npm update
-            npm install --no-package-lock
+            npm install
       - run:
           name: Package Backend
           command: |
